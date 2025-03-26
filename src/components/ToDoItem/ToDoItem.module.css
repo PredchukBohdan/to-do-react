@@ -1,0 +1,68 @@
+.todolist-item {
+  padding: 15px 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: #9562e6;
+  transition: background-color 0.5s ease, text-decoration 0.5s ease;
+}
+.todolist-item__complete {
+  width: 15px;
+  height: 15px;
+  appearance: none;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  flex-shrink: 0;
+}
+
+.todolist-item__complete:checked {
+  background-color: #2e1358;
+}
+
+.todolist-item__complete:checked::before {
+  content: "✔";
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.todolist-item__text {
+  flex-grow: 1;
+}
+.todolist-item__delete {
+  flex-shrink: 0;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: fill 0.5s ease;
+}
+.todolist-item__delete svg {
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+  transition: fill 0.5s ease;
+}
+.todolist-item__delete:hover svg {
+  fill: #2e1358;
+}
+.todolist-item.complete {
+  text-decoration: line-through;
+  background-color: #919191;
+}
+.todolist-item.complete .todolist-item__complete {
+  background-color: #656565;
+}
+@media screen and (min-width: 768px) {
+  .todolist-item {
+    padding: 20px 15px;
+    font-size: 18px;
+  }
+}
