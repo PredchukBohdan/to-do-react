@@ -34,7 +34,8 @@
 .todolist-item__text {
   flex-grow: 1;
 }
-.todolist-item__delete {
+.todolist-item__delete,
+.todolist-item__edit {
   flex-shrink: 0;
   background-color: transparent;
   border: none;
@@ -42,27 +43,85 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  transition: fill 0.5s ease;
 }
-.todolist-item__delete svg {
+.todolist-item__delete svg,
+.todolist-item__edit svg {
   width: 100%;
   height: 100%;
   fill: #fff;
-  transition: fill 0.5s ease;
+  transition: fill 0.5s ease, transform 0.5s ease;
 }
-.todolist-item__delete:hover svg {
+.todolist-item__delete:hover svg,
+.todolist-item__edit:hover svg {
   fill: #2e1358;
+  transform: translateY(-2px);
 }
 .todolist-item.complete {
-  text-decoration: line-through;
   background-color: #919191;
+}
+.todolist-item.complete .todolist-item__text {
+  text-decoration: line-through;
 }
 .todolist-item.complete .todolist-item__complete {
   background-color: #656565;
+}
+.todolist-edit-input {
+  flex-grow: 1;
+  padding: 15px 10px;
+  border-radius: 5px;
+  border: 1px solid #9562e6;
+  outline: none;
+}
+.todolist-edit-button {
+  flex-shrink: 0;
+  padding: 15px 10px;
+  border-radius: 5px;
+  border: 1px solid #2e1358;
+  background-color: #2e1358;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.5s ease, background-color 0.5s ease;
+  &:hover {
+    border-color: #593790;
+    background-color: #593790;
+  }
+}
+.todolist-edit-close {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  & svg {
+    width: 100%;
+    height: 100%;
+    fill: #fff;
+    transition: transform 0.5s ease;
+  }
+}
+.todolist-edit-close:hover svg {
+  transform: rotate(90deg);
 }
 @media screen and (min-width: 768px) {
   .todolist-item {
     padding: 20px 15px;
     font-size: 18px;
+  }
+  .todolist-item__complete {
+    width: 20px;
+    height: 20px;
+  }
+  .todolist-item__complete:checked::before {
+    font-size: 17px;
+  }
+}
+@media screen and (max-width: 649px) {
+  .todolist-item.edit {
+    flex-wrap: wrap;
+  }
+  .todolist-item.edit .todolist-edit-input {
+    width: 100%;
   }
 }

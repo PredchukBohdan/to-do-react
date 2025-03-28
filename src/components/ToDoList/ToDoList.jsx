@@ -11,8 +11,10 @@ export default function ToDoList({ title }) {
   });
 
   const [inputValue, setInputValue] = useState("");
+  const [editInputValue, setEditInputValue] = useState("");
   useEffect(() => {
     setInputValue("");
+    setEditInputValue("");
     localStorage.setItem("todo-items", JSON.stringify(items));
   }, [items]);
 
@@ -21,6 +23,7 @@ export default function ToDoList({ title }) {
       const newToDo = {
         id: crypto.randomUUID(),
         isComplete: false,
+        isEdit: false,
         text: inputValue,
       };
       setItems([...items, newToDo]);
@@ -34,6 +37,25 @@ export default function ToDoList({ title }) {
     const newItems = items.map((item) => {
       if (item.id === id) {
         item.isComplete = !item.isComplete;
+      }
+      return item;
+    });
+    setItems(newItems);
+  }
+  function editToDo(id) {
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        item.isEdit = !item.isEdit;
+      }
+      return item;
+    });
+    setItems(newItems);
+  }
+  function updateToDo(id) {
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        item.text = editInputValue;
+        item.isEdit = !item.isEdit;
       }
       return item;
     });
@@ -56,6 +78,10 @@ export default function ToDoList({ title }) {
               {...item}
               removeToDo={removeToDo}
               completeToDo={completeToDo}
+              editToDo={editToDo}
+              editInputValue={editInputValue}
+              setEditInputValue={setEditInputValue}
+              updateToDo={updateToDo}
             />
           ))}
         </ul>
