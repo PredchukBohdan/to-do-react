@@ -109,7 +109,7 @@ export default function ToDoList({ title }) {
           ))}
         </ul>
       )}
-      {activeItem && <ToDoPopup item={activeItem} closePopup={closePopup} />}
+      {/* {activeItem && <ToDoPopup item={activeItem} closePopup={closePopup} />} */}
     </div>
   );
 }

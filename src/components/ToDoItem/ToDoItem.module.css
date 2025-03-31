@@ -8,29 +8,38 @@
   background-color: #9562e6;
   transition: background-color 0.5s ease, text-decoration 0.5s ease;
 }
-.todolist-item__complete {
-  width: 15px;
-  height: 15px;
-  appearance: none;
-  background-color: white;
-  border-radius: 4px;
-  cursor: pointer;
+.todolist-item__label {
+  width: 40px;
+  border-radius: 50px;
+  height: 20px;
+  background-color: #07cb00d6;
+  position: relative;
   transition: background-color 0.5s ease;
   flex-shrink: 0;
+  cursor: pointer;
+}
+.todolist-item__label:before {
+  content: "";
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+.todolist-item__label.complete {
+  background-color: #18181896;
+}
+.todolist-item__label.complete:before {
+  transform: translateX(-20px);
+}
+.todolist-item__complete {
+  display: none;
 }
 
-.todolist-item__complete:checked {
-  background-color: #2e1358;
-}
-
-.todolist-item__complete:checked::before {
-  content: "✔";
-  color: white;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .todolist-item__text {
   flex-grow: 1;
 }

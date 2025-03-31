@@ -24,13 +24,22 @@ export default function ToDoItem({
     <>
       {!isEdit && (
         <li className={clsx(s["todolist-item"], isComplete && s.complete)}>
-          <input
-            type="checkbox"
-            name="complete"
-            className={clsx(s["todolist-item__complete"])}
-            onChange={() => completeToDo(id)}
-            checked={isComplete}
-          />
+          <label
+            htmlFor={`${id}-switch`}
+            className={clsx(
+              s["todolist-item__label"],
+              isComplete && s.complete
+            )}
+          >
+            <input
+              id={`${id}-switch`}
+              type="checkbox"
+              name="complete"
+              className={clsx(s["todolist-item__complete"])}
+              onChange={() => completeToDo(id)}
+              checked={isComplete}
+            />
+          </label>
           <p className={clsx(s["todolist-item__text"])}>{text}</p>
           <button
             onClick={() =>
