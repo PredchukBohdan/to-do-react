@@ -3,10 +3,13 @@ import clsx from "clsx";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { FaInfoCircle } from "react-icons/fa";
 
 export default function ToDoItem({
   id,
   text,
+  createDate,
+  finishDate,
   removeToDo,
   isComplete,
   isEdit,
@@ -15,6 +18,7 @@ export default function ToDoItem({
   editInputValue,
   setEditInputValue,
   updateToDo,
+  openPopup,
 }) {
   return (
     <>
@@ -28,9 +32,17 @@ export default function ToDoItem({
             checked={isComplete}
           />
           <p className={clsx(s["todolist-item__text"])}>{text}</p>
+          <button
+            onClick={() =>
+              openPopup({ id, text, isComplete, createDate, finishDate })
+            }
+            className={clsx(s["todolist-item__info"])}
+          >
+            <FaInfoCircle />
+          </button>
           {!isComplete && (
             <button
-              onClick={() => editToDo(id)}
+              onClick={() => editToDo(id, text)}
               className={clsx(s["todolist-item__edit"])}
             >
               <FaEdit />
@@ -58,7 +70,7 @@ export default function ToDoItem({
             className={clsx(s["todolist-edit-button"])}
             onClick={() => {
               updateToDo(id);
-              setEditInputValue("");
+              // setEditInputValue("");
             }}
           >
             Updated task
