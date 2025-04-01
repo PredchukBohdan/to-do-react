@@ -11,12 +11,10 @@ export default function ToDoList({ title }) {
     return data ? JSON.parse(data) : [];
   });
 
-  const [inputValue, setInputValue] = useState("");
   const [editInputValue, setEditInputValue] = useState("");
   const [activeItem, setActiveItem] = useState(null);
 
   useEffect(() => {
-    setInputValue("");
     localStorage.setItem("todo-items", JSON.stringify(items));
   }, [items]);
 
@@ -30,51 +28,45 @@ export default function ToDoList({ title }) {
       minute: "2-digit",
     });
   }
-  function addToDo() {
-    if (inputValue) {
-      const newToDo = {
-        id: crypto.randomUUID(),
-        isComplete: false,
-        isEdit: false,
-        text: inputValue,
-        createDate: getCurrentDateTime(),
-        finishDate: null,
-      };
-      setItems([...items, newToDo]);
-    }
+  function addToDo(newTask) {
+    setItems((prevTasks) => {
+      return [...prevTasks, newTask];
+    });
   }
-  function removeToDo(id) {
-    setItems(items.filter((item) => item.id !== id));
+  function removeToDo(taskId) {
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== taskId);
+    });
   }
-  function completeToDo(id) {
-    setItems(
-      items.map((item) => {
-        return item.id === id
+  function completeToDo(taskId) {
+    setItems((prevItems) => {
+      return prevItems.map((item) => {
+        return item.id === taskId
           ? {
               ...item,
               isComplete: !item.isComplete,
               finishDate: getCurrentDateTime(),
             }
           : item;
-      })
-    );
+      });
+    });
   }
   function editToDo(id, text) {
     setEditInputValue(text);
-    setItems(
-      items.map((item) =>
+    setItems((prevItems) => {
+      return prevItems.map((item) =>
         item.id === id ? { ...item, isEdit: !item.isEdit } : item
-      )
-    );
+      );
+    });
   }
-  function updateToDo(id) {
-    setItems(
-      items.map((item) => {
-        return item.id === id
-          ? { ...item, text: editInputValue, isEdit: !item.isEdit }
+  function updateToDo(taskId, text) {
+    setItems((prevTask) => {
+      return prevTask.map((item) => {
+        return item.id === taskId
+          ? { ...item, text: text, isEdit: !item.isEdit }
           : item;
-      })
-    );
+      });
+    });
   }
   function openPopup(item) {
     setActiveItem(item);
@@ -87,11 +79,7 @@ export default function ToDoList({ title }) {
   return (
     <div className={clsx(s.todolist)}>
       <h1 className={clsx(s.title)}>{title}</h1>
-      <ToDoInput
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        addToDo={addToDo}
-      />
+      <ToDoInput getTime={getCurrentDateTime} addToDo={addToDo} />
       {items.length > 0 && (
         <ul className={clsx(s.items)}>
           {items.map((item) => (
@@ -109,7 +97,7 @@ export default function ToDoList({ title }) {
           ))}
         </ul>
       )}
-      {/* {activeItem && <ToDoPopup item={activeItem} closePopup={closePopup} />} */}
+      {activeItem && <ToDoPopup item={activeItem} closePopup={closePopup} />}
     </div>
   );
 }

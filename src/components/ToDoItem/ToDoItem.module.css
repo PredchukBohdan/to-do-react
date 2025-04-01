@@ -8,6 +8,13 @@
   background-color: #9562e6;
   transition: background-color 0.5s ease, text-decoration 0.5s ease;
 }
+.todolist-form {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
 .todolist-item__label {
   width: 40px;
   border-radius: 50px;
@@ -130,7 +137,7 @@
   }
 }
 @media screen and (max-width: 649px) {
-  .todolist-item.edit {
+  .todolist-form {
     flex-wrap: wrap;
   }
   .todolist-item.edit .todolist-edit-input {
